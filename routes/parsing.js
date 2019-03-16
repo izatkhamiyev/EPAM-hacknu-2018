@@ -26,8 +26,12 @@ function scrape(query) {
                                 if ($(this).text().substring(0, 1) !== '\n')
                                     des.push($(this).text().replace(/ *\([^)]*\) */g, "").replace(/ *\[[^\]]*]/g, '').replace('\n',''));
                             })
-                            
-                            return des;
+                            var src = $("img", '#mw-content-text').attr('src');
+                            const result ={
+                                des: des,
+                                src: src
+                            }                            
+                            return result;
                         })
                         .catch(function (err) {
                             resolve(err);
@@ -39,5 +43,9 @@ function scrape(query) {
             })
     })
 }
-
+scrape("introductio to algorithms")
+    .then((res) => {
+        console.log(res)
+    })
+    .catch(err => console.log(err))
 module.exports = scrape;

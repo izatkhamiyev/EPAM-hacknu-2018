@@ -24,11 +24,12 @@ router.route('/')
     .post(authenticate.verifyUser, (req, res, next) => {
         if (req.body != null) {
             scrape(req.body.title)
-                .then(des => {
-                    if(des.length)
-                        req.body.description = des[0];
-                    if(des.length > 1)
-                        req.body.description += des[1];
+                .then(result => {
+                    if(result.des.length)
+                        req.body.description = result.des[0];
+                    if(result.des.length > 1)
+                        req.body.description += result.des[1];
+                    req.body.image = result.src;
                     req.body.owner = req.user._id;
                     req.body.tenant = req.user._id;
                     Book.create(req.body)

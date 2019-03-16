@@ -19,6 +19,16 @@ router.get('/', (req, res, next) => {
     .catch((err) => next(err)); 
 });
 
+router.get('/:userId', (req, res, nexy) => {
+  User.findById(req.params.userId)
+    .then((users) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json(users);
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+
 router.post('/signup', (req, res, next) => {
   User.register(new User({username: req.body.username}), req.body.password, (err, user) =>{
     if(err) {
@@ -55,15 +65,6 @@ router.post('/signup', (req, res, next) => {
   });
 });
 
-router.get('/:userId', (req, res, nexy) => {
-  User.findById(req.params.userId)
-    .then((users) => {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.json(users);
-    }, (err) => next(err))
-    .catch((err) => next(err));
-})
 
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
