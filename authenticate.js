@@ -60,8 +60,7 @@ passport.use(new FacebookTokenStrategy({
         else {
             user = new User({ username: profile.displayName });
             user.facebookId = profile.id;
-            user.firstname = profile.name.givenName;
-            user.lastname = profile.name.familyName;
+            user.name = profile.name.givenName + profile.name.familyName;
             user.save((err, user) => {
                 if (err)
                     return done(err, false);

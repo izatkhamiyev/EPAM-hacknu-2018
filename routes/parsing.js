@@ -43,9 +43,9 @@ function scrape(query) {
             })
     })
 }
-scrape("introductio to algorithms")
-    .then((res) => {
-        console.log(res)
-    })
-    .catch(err => console.log(err))
+// scrape("introductio to algorithms")
+//     .then((res) => {
+//         console.log(res)
+//     })
+//     .catch(err => console.log(err))
 module.exports = scrape;

@@ -165,4 +165,23 @@ router.route('/:bookId')
             .catch((err) => next(err));
     });
 
+router.route("/:bookId/request")
+.get(authenticate.verifyUser, (req, res, next)=>{
+    Book.findById(req.params.bookId)
+    .then((book) => {
+        User.findById(book.owner)
+        .then((user) => {
+            console.log(user);
+            user.requests.push(req.user._id);
+            user.save()
+            .then(user =>{
+                res.statusCode = 200;
+                res.setHeader('Content-type', 'application/json');
+                res.json(user);
+            }, err => next(err))
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
+})
 module.exports = router;

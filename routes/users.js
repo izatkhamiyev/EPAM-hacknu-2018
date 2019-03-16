@@ -37,12 +37,8 @@ router.post('/signup', (req, res, next) => {
       res.json({err: err});
     }
     else{
-      if (req.body.firstname)
-        user.firstname = req.body.firstname;
-      if (req.body.lastname)
-        user.lastname = req.body.lastname;
-      if (req.body.email)
-        user.firstname = req.body.email;
+      if (req.body.name)
+        user.name = req.body.name;
       if (req.body.phoneNumber)
         user.lastname = req.body.phoneNumber;
       if (req.body.location)
@@ -85,7 +81,7 @@ router.post('/login', (req, res, next) => {
       var token = authenticate.getToken({_id: req.user._id});
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-      res.json({success: true, status: 'Login Successful!!!!!', token: token, user: req.user});
+      res.json({success: true, status: 'Login Successful!!!!!', token: token, user: +req.user});
       console.log(req.user.username);
     }); 
   }) (req, res, next);
