@@ -60,7 +60,9 @@ passport.use(new FacebookTokenStrategy({
         else {
             user = new User({ username: profile.displayName });
             user.facebookId = profile.id;
-            user.name = profile.name.givenName + profile.name.familyName;
+            user.name = profile.name.givenName + " " + profile.name.familyName;
+            user.location = "Астана";
+            console.log(profile);
             user.save((err, user) => {
                 if (err)
                     return done(err, false);
