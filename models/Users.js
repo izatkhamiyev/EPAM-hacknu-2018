@@ -22,10 +22,12 @@ var userSchema = new Schema({
     },
     facebookId: String,
     googleId: String,
-    admin: {
-        type: Boolean,
-        default: false
-    },
+    favorites:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Book'
+        }
+    ],
     books: [
         {
             type: mongoose.Schema.Types.ObjectId,
