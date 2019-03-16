@@ -8,6 +8,10 @@ var userSchema = new Schema({
         type: String,
         default: ''
     },
+    image: {
+        type:String,
+        default: "https://previews.123rf.com/images/salamatik/salamatik1801/salamatik180100019/92979836-profile-anonymous-face-icon-gray-silhouette-person-male-default-avatar-photo-placeholder-isolated-on.jpg"
+    },
     phoneNumber: {
         type: String,
         default: ''
