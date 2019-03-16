@@ -63,7 +63,7 @@ passport.use(new FacebookTokenStrategy({
             user.name = profile.name.givenName + " " + profile.name.familyName;
             user.location = "Астана";
             if(profile.photos[0])
-                user.image = profile.photos[0];
+                user.image = profile.photos[0].value;
             console.log(profile);
             user.save((err, user) => {
                 if (err)
