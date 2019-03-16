@@ -58,7 +58,7 @@ router.post('/signup', (req, res, next) => {
           var token = authenticate.getToken({_id: req.user._id});
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
-          res.json({success: true, token: token, status: 'Registration Successful!'});
+          res.json({success: true, token: token, status: 'Registration Successful!', user: req.user});
         });
       });
     }
@@ -85,7 +85,7 @@ router.post('/login', (req, res, next) => {
       var token = authenticate.getToken({_id: req.user._id});
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-      res.json({success: true, status: 'Login Successful!!!!!', token: token});
+      res.json({success: true, status: 'Login Successful!!!!!', token: token, user: req.user});
       console.log(req.user.username);
     }); 
   }) (req, res, next);
@@ -96,7 +96,7 @@ router.get('/facebook/token', passport.authenticate('facebook-token'), (req, res
     var token = authenticate.getToken({_id: req.user._id});
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    res.json({success: true, token: token, status: 'You are successfully logged in!'});
+    res.json({success: true, token: token, status: 'You are successfully logged in!', user: req.user});
   }
 });
 
