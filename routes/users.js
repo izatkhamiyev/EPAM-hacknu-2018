@@ -40,9 +40,9 @@ router.post('/signup', (req, res, next) => {
       if (req.body.name)
         user.name = req.body.name;
       if (req.body.phoneNumber)
-        user.lastname = req.body.phoneNumber;
-      if (req.body.location)
-        user.lastname = req.body.location;
+        user.phoneNumber = req.body.phoneNumber;
+
+      user.location = "Астана";
       user.save((err, user) => {
         if (err) {
           res.statusCode = 500;
