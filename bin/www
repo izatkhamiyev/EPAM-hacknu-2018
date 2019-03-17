@@ -23,11 +23,14 @@ var server = http.createServer(app);
 
 websocket = require('socket.io').listen(server);
 
-websocket.on('channel2', (data) => {
-  console.log('user connected', data)
-});
+websocket.on('channel1', (data) => {
+  console.log('Greetings from RN app', data);
+})
 
-
+websocket.emit('channel2', 'new channel');
+websocket.on('channel2', (obj) => {
+  console.log('Object from RN app', obj);
+})
 
 /**
  * Listen on provided port, on all network interfaces.
