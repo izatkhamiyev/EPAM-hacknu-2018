@@ -21,6 +21,14 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+websocket = require('socket.io').listen(server);
+
+websocket.on('channel2', (data) => {
+  console.log('user connected', data)
+});
+
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */
