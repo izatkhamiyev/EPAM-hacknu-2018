@@ -37,7 +37,7 @@ var userSchema = new Schema({
     ], 
     requests: [
         {
-            type: Object,
+            type: Object
         } 
     ]
 });

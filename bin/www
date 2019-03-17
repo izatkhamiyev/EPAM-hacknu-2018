@@ -35,7 +35,8 @@ websocket.on('connection', (socket) => {
             res.setHeader('Content-type', 'application/json');
             res.json(user);
             socket.emit(obj.to, {from: obj.from, book: obj.book});
-          },err => next(err))
+          })
+          .catch(err => next(err))
       })
       .catch(err => next(err))
   })
