@@ -29,7 +29,7 @@ router.get('/:userId', (req, res, nexy) => {
     .catch((err) => next(err));
 })
 
-router.put('/',authenticate.verifyUser, (req, res, nexy) => {
+router.put('/',authenticate.verifyUser, (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       user.requests = user.requests.filter(rq => !rq.equals(req.request));
