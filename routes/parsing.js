@@ -43,9 +43,10 @@ function scrape(query) {
             })
     })
 }
-// scrape("introductio to algorithms")
+// scrape("introduction to algorithms")
 //     .then((res) => {
 //         console.log(res)
 //     })
 //     .catch(err => console.log(err))
 module.exports = scrape;
+
