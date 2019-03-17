@@ -33,7 +33,7 @@ router.put('/',authenticate.verifyUser, (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       console.log(user);
-      user.requests = user.requests.filter(rq => !(rq.book === req.request.book && rq.user === req.request.user));
+      user.requests = user.requests.filter(rq => !(rq.book === req.body.request.book && rq.user === req.body.request.user));
       user.save()
         .then(user => {
           res.statusCode = 200;
