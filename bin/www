@@ -29,7 +29,7 @@ websocket.on('connection', (socket) => {
   socket.on('channel2', (obj) => {
   console.log('Object from RN app', obj);
 })
-
+})
 /**
  * Listen on provided port, on all network interfaces.
  */
