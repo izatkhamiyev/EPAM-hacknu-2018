@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.get('/:userId', (req, res, nexy) => {
+router.get('/:userId', (req, res, next) => {
   User.findById(req.params.userId)
     
     .then((users) => {
