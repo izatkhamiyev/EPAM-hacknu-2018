@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 const socketio = require('socket.io');
-
+const User = require('../models/Users');
 /**
  * Get port from environment and store in Express.
  */
@@ -26,10 +26,19 @@ const websocket = socketio(server); //Initiate Socket
 
 websocket.on('connection', (socket) => {
   socket.on('notify', (obj) => {
-    console.log(obj);
-    socket.emit(obj.to, `${obj.from} requests your book: ${obj.book}`);
+    User.findById(obj.to)
+      .then(user => {
+        user.requests.push({ user: obj.from, book: obj.book })
+        user.save()
+          .then(user => {
+            res.statusCode = 200;
+            res.setHeader('Content-type', 'application/json');
+            res.json(user);
+            socket.emit(obj.to, `${obj.from} requests your book: ${obj.book}`);
+          },err => next(err))
+      })
+      .catch(err => next(err))
   })
-  
 })
 /**
  * Listen on provided port, on all network interfaces.

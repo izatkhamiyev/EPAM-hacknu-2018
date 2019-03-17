@@ -36,9 +36,8 @@ var userSchema = new Schema({
     ], 
     requests: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }
+            type: Object
+        } 
     ]
 });
 

@@ -29,6 +29,20 @@ router.get('/:userId', (req, res, nexy) => {
     .catch((err) => next(err));
 })
 
+router.put('/',authenticate.verifyUser, (req, res, nexy) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      user.requests = user.requests.filter(rq => !rq.equals(req.request));
+      user.save()
+        .then(user => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(user);
+        }, err => next(err))
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+
 router.route('/favorites')
   .post(authenticate.verifyUser, (req, res, next) => {
     User.findById(req.user._id)
@@ -46,7 +60,7 @@ router.route('/favorites')
   .delete(authenticate.verifyUser, (req, res, next) => {
     User.findById(req.user._id)
       .then(user => {
-        user.favorites =  user.favorites.filter(fav => !fav.equals(req.book));
+        user.favorites = user.favorites.filter(fav => !fav.equals(req.book));
         user.save()
           .then(user => {
             res.statusCode = 200;
@@ -55,7 +69,7 @@ router.route('/favorites')
           }, err => next(err))
       })
       .catch(err => next(err));
-    })
+  })
 
 router.post('/signup', (req, res, next) => {
   User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
