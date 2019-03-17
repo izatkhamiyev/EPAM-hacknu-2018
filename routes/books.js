@@ -13,7 +13,8 @@ router.use(bodyParser.json());
 router.route('/')
     .get((req, res, next) => {
         Book.find({})
-            .populate('comments')
+            .populate('owner')
+            .populate('tenant')
             .then((books) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -25,9 +26,9 @@ router.route('/')
         if (req.body != null) {
             scrape(req.body.title)
                 .then(result => {
-                    if(result.des.length)
+                    if (result.des.length)
                         req.body.description = result.des[0];
-                    if(result.des.length > 1)
+                    if (result.des.length > 1)
                         req.body.description += result.des[1];
                     req.body.image = result.src;
                     req.body.owner = req.user._id;
@@ -40,7 +41,8 @@ router.route('/')
                                     user.save()
                                         .then(() => {
                                             Book.findById(book._id)
-                                                .populate('comments')
+                                                .populate('owner')
+                                                .populate('tenant')
                                                 .then(book => {
                                                     res.statusCode = 200;
                                                     res.setHeader('Content-type', 'application/json');
@@ -62,7 +64,8 @@ router.route('/')
                                     user.save()
                                         .then(() => {
                                             Book.findById(book._id)
-                                                .populate('comments')
+                                                .populate('owner')
+                                                .populate('tenant')
                                                 .then(book => {
                                                     res.statusCode = 200;
                                                     res.setHeader('Content-type', 'application/json');
@@ -166,22 +169,22 @@ router.route('/:bookId')
     });
 
 router.route("/:bookId/request")
-.get(authenticate.verifyUser, (req, res, next)=>{
-    Book.findById(req.params.bookId)
-    .then((book) => {
-        User.findById(book.owner)
-        .then((user) => {
-            console.log(user);
-            user.requests.push(req.user._id);
-            user.save()
-            .then(user =>{
-                res.statusCode = 200;
-                res.setHeader('Content-type', 'application/json');
-                res.json(user);
-            }, err => next(err))
-        })
-        .catch(err => next(err));
+    .get(authenticate.verifyUser, (req, res, next) => {
+        Book.findById(req.params.bookId)
+            .then((book) => {
+                User.findById(book.owner)
+                    .then((user) => {
+                        console.log(user);
+                        user.requests.push(req.user._id);
+                        user.save()
+                            .then(user => {
+                                res.statusCode = 200;
+                                res.setHeader('Content-type', 'application/json');
+                                res.json(user);
+                            }, err => next(err))
+                    })
+                    .catch(err => next(err));
+            })
+            .catch(err => next(err));
     })
-    .catch(err => next(err));
-})
 module.exports = router;
