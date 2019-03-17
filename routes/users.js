@@ -61,7 +61,7 @@ router.route('/favorites')
   .delete(authenticate.verifyUser, (req, res, next) => {
     User.findById(req.user._id)
       .then(user => {
-        user.favorites = user.favorites.filter(fav => !fav.equals(req.book));
+        user.favorites = user.favorites.filter(fav => !fav.equals(req.body.book));
         user.save()
           .then(user => {
             res.statusCode = 200;
