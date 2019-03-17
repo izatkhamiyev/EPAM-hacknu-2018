@@ -36,9 +36,9 @@ websocket.on('connection', (socket) => {
             res.json(user);
             socket.emit(obj.to, {from: obj.from, book: obj.book});
           })
-          .catch(err => next(err))
+          .catch(err => console.log(err))
       })
-      .catch(err => next(err))
+      .catch(err => console.log(err))
   })
 })
 /**
