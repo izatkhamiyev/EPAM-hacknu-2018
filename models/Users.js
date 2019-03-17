@@ -26,8 +26,7 @@ var userSchema = new Schema({
     favorites:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Book',
-            unique: true
+            ref: 'Book'
         }
     ],
     books: [
