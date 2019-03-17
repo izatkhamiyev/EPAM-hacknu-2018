@@ -32,7 +32,7 @@ router.get('/:userId', (req, res, nexy) => {
 router.put('/',authenticate.verifyUser, (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      user.requests = user.requests.filter(rq => !rq.equals(req.request));
+      user.requests = user.requests.filter(rq => !(rq.user === req.request.user && rq.book === req.request.book));
       user.save()
         .then(user => {
           res.statusCode = 200;
