@@ -14,7 +14,8 @@ var userSchema = new Schema({
     },
     phoneNumber: {
         type: String,
-        default: ''
+        default: '',
+        
     },
     location: {
         type: String,
@@ -25,7 +26,8 @@ var userSchema = new Schema({
     favorites:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Book'
+            ref: 'Book',
+            unique: true
         }
     ],
     books: [
@@ -36,7 +38,7 @@ var userSchema = new Schema({
     ], 
     requests: [
         {
-            type: Object
+            type: Object,
         } 
     ]
 });

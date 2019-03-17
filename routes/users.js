@@ -21,6 +21,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:userId', (req, res, nexy) => {
   User.findById(req.params.userId)
+    
     .then((users) => {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
@@ -35,6 +36,8 @@ router.put('/',authenticate.verifyUser, (req, res, next) => {
       console.log(user);
       user.requests = user.requests.filter(rq => !(rq.book === req.body.request.book && rq.user === req.body.request.user));
       user.save()
+      .populate('user')
+      .populate('book')
         .then(user => {
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
