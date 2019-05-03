@@ -21,7 +21,6 @@ router.get('/', (req, res, next) => {
 
 router.get('/:userId', (req, res, next) => {
   User.findById(req.params.userId)
-    
     .then((users) => {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
